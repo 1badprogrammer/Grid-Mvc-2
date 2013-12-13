@@ -1,0 +1,13 @@
+/Grid.Mvc.Ajax/bin
+/Grid.Mvc.Ajax/obj
+/packages/Grid.Mvc.3.0.0
+
+/*.suo
+
+/Grid.Mvc.Demo/bin/
+
+/Grid.Mvc.Demo/obj/
+
+/packages/
+
+!.config
