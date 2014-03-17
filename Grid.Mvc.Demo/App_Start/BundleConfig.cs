@@ -12,6 +12,7 @@ namespace Grid.Mvc.Demo
             var siteJsBundle = new ScriptBundle("~/bundles/siteJs.js")
                 .Include("~/Scripts/jquery-{version}.js", "~/Scripts/bootstrap.min.js",
                 "~/Scripts/ladda-bootstrap/spin.min.js", "~/Scripts/ladda-bootstrap/ladda.min.js",
+                "~/Scripts/URI.js",
                 "~/Scripts/gridmvc.js", "~/Scripts/gridmvc-ext.js");
 
             bundles.Add(siteJsBundle);

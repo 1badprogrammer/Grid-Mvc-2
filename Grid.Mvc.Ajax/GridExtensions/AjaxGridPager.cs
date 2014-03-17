@@ -5,9 +5,10 @@ using GridMvc.Pagination;
 
 namespace Grid.Mvc.Ajax.GridExtensions
 {
-    public class AjaxGridPager : IGridPager
+    public class AjaxGridPager : IGridPager, IAjaxGridPager
     {
         private readonly IGrid _grid;
+        public int PagePartitionSize { get; set; }
 
         public AjaxGridPager(IGrid grid)
         {

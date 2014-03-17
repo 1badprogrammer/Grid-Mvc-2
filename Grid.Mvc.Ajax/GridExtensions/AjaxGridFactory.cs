@@ -7,7 +7,13 @@ namespace Grid.Mvc.Ajax.GridExtensions
         public IAjaxGrid CreateAjaxGrid<T>(IQueryable<T> gridItems, int page, bool renderOnlyRows)
             where T : class
         {
-            var grid = new AjaxGrid<T>(gridItems, page, renderOnlyRows);
+            return CreateAjaxGrid(gridItems, page, renderOnlyRows, 0);
+        }
+
+        public IAjaxGrid CreateAjaxGrid<T>(IQueryable<T> gridItems, int page, bool renderOnlyRows, int pagePartitionSize)
+           where T : class
+        {
+            var grid = new AjaxGrid<T>(gridItems, page, renderOnlyRows, pagePartitionSize);
             return grid;
         }
     }

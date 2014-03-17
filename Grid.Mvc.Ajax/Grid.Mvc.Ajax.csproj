@@ -53,6 +53,7 @@
     <Compile Include="GridExtensions\AjaxGridPager.cs" />
     <Compile Include="GridExtensions\IAjaxGrid.cs" />
     <Compile Include="GridExtensions\IAjaxGridFactory.cs" />
+    <Compile Include="GridExtensions\IAjaxGridPager.cs" />
     <Compile Include="Helpers\IHtmlHelpers.cs" />
     <Compile Include="Helpers\KlaHtmlHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +67,7 @@
     <Content Include="Content\ladda-bootstrap\ladda-themeless.min.css" />
     <Content Include="Scripts\ladda-bootstrap\ladda.min.js" />
     <Content Include="Scripts\ladda-bootstrap\spin.min.js" />
+    <Content Include="Scripts\URI.js" />
     <None Include="Grid.Mvc.Ajax.readme" />
     <Content Include="Scripts\gridmvc-ext.js" />
     <Content Include="Scripts\gridmvc.js" />

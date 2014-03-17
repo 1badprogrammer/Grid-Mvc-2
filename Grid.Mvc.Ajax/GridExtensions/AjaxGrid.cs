@@ -7,13 +7,15 @@ namespace Grid.Mvc.Ajax.GridExtensions
 {
     public class AjaxGrid<T> : Grid<T>, IAjaxGrid where T: class
     {
-        public bool HasItems { get { return Pager.CurrentPage < (Pager as AjaxGridPager).Pages; } }
+        public IAjaxGridPager AjaxGridSettings { get { return Pager as IAjaxGridPager; } }
+        public bool HasItems { get { return Pager.CurrentPage < AjaxGridSettings.Pages; } }
 
-        public AjaxGrid(IQueryable<T> items, int page, bool renderOnlyRows)
+        public AjaxGrid(IQueryable<T> items, int page, bool renderOnlyRows, int pagePartitionSize=0)
             : base(items)
         {
-            Pager = new AjaxGridPager(this) { CurrentPage = page }; 
+            Pager = new AjaxGridPager(this) { CurrentPage = page };
             RenderOptions.RenderRowsOnly = renderOnlyRows;
+            AjaxGridSettings.PagePartitionSize = pagePartitionSize;
         }
 
         public string ToJson(string gridPartialViewName, Controller controller)
