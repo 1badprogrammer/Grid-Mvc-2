@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Grid.Mvc.Ajax.Helpers;
 using GridMvc;
@@ -22,6 +23,12 @@ namespace Grid.Mvc.Ajax.GridExtensions
         {
             var htmlHelper = new KlaHtmlHelpers();
             return htmlHelper.RenderPartialViewToString(gridPartialViewName, this, controller);
+        }
+
+        public string ToJson(string gridPartialViewName, Object model, Controller controller)
+        {
+            var htmlHelper = new KlaHtmlHelpers();
+            return htmlHelper.RenderPartialViewToString(gridPartialViewName, model, controller);
         }
     }
 }
