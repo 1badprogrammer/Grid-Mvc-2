@@ -17,9 +17,10 @@
             self.gridColumnFilters = null;
             var filters = self.jqContainer.find(".grid-filter");
             var url = URI(initialUrl).normalizeSearch().search();
-
+            
+            /*
             if (url.length > 0)
-                url += "&";
+                url += "&";*/
 
             self.gridColumnFilters = "";
             if (!skip) {
@@ -31,7 +32,7 @@
                     if ($(filters[i]).attr("data-name") != columnName) {
                         var filterData = this.parseFilterValues($(filters[i]).attr("data-filterdata"));
                         if (filterData.length == 0) continue;
-                        if (url.length > 0) url += "&";
+                        if (self.gridColumnFilters.length > 0) self.gridColumnFilters += "&";
                         self.gridColumnFilters += this.getFilterQueryData($(filters[i]).attr("data-name"), filterData);
                     } else {
                         continue;
@@ -39,7 +40,10 @@
                 }
             }
 
-            url += self.gridColumnFilters;
+            if (self.gridColumnFilters.length > 0)
+            {
+                url += "&" + self.gridColumnFilters;
+            }
             var fullSearch = url;
             if (fullSearch.indexOf("?") == -1) {
                 fullSearch = "?" + fullSearch;
@@ -71,6 +75,8 @@
             self.pageSetNum = 1;
             self.partitionSize = parseInt(self.jqContainer.find(".grid-pageSetLink").attr("data-partitionSize"));
             self.lastPageNum = parseInt(self.jqContainer.find(".grid-page-link:last").attr('data-page'));
+            var $namedGrid = $('[data-gridname="' + self.jqContainer.data("gridname") + '"]');
+            self.jqContainer = $namedGrid.length === 1 ? $namedGrid : self.jqContainer;
 
             if (self.gridSort) {
                 if (self.gridSort.indexOf("grid-dir=0") != -1) {
@@ -421,6 +427,10 @@
             self.currentPage = 1;
             self.updateGrid(location.search, function () {
             });
+        },
+        refreshPartialGrid: function () {
+            var self = this;
+            self.loadPage();
         }
     });
 })(jQuery);
