@@ -75,8 +75,8 @@
             self.pageSetNum = 1;
             self.partitionSize = parseInt(self.jqContainer.find(".grid-pageSetLink").attr("data-partitionSize"));
             self.lastPageNum = parseInt(self.jqContainer.find(".grid-page-link:last").attr('data-page'));
-            var $namedGrid = $('[name="' + self.data("gridname") + '"]');
-            self.jqContainer = $namedGrid.length > 0 ? $namedGrid:jqContainer;
+            var $namedGrid = $('[name="' + self.jqContainer.data("gridname") + '"]');
+            self.jqContainer = $namedGrid.length > 0 ? $namedGrid:self.jqContainer;
 
             if (self.gridSort) {
                 if (self.gridSort.indexOf("grid-dir=0") != -1) {
