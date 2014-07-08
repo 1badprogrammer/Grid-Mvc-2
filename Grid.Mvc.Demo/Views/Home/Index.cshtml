@@ -12,6 +12,10 @@
     Html.RenderPartial("_CarGrid", Model.Grid);
 }
 
+@{
+    Html.RenderPartial("_Grid2", Model.Grid2);
+}
+
 @section scripts
 {
     @Scripts.Render("~/bundles/gridDemo.js")
@@ -19,7 +23,8 @@
     <script type="text/javascript">
      GridMvcAjax.demo.init(
     {
-        updateGridAction: '@Url.Action("Grid")'
+        updateGridAction: '@Url.Action("Grid")',
+        grid2Action: '@Url.Action("Grid2")'
     });
     </script>
 }

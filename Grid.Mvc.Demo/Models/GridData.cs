@@ -9,5 +9,7 @@ namespace Grid.Mvc.Demo.Models
     public class GridData
     {
         public AjaxGrid<GridDataRow> Grid { get; set; }
+
+        public AjaxGrid<GridDataRow> Grid2 { get; set; }
     }
 }

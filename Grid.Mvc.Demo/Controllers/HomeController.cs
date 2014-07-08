@@ -14,7 +14,11 @@ namespace Grid.Mvc.Demo.Controllers
         {
             var cars = Data();
             var grid = (AjaxGrid<GridDataRow>)new AjaxGridFactory().CreateAjaxGrid(cars, 1, false);
-            return View(new GridData() { Grid = grid });
+
+            var partitionedData = PartitionedData();
+            var grid2 = (AjaxGrid<GridDataRow>)new AjaxGridFactory().CreateAjaxGrid(partitionedData, 1, false, 10);
+
+            return View(new GridData() { Grid = grid, Grid2 = grid2 });
         }
 
         [HttpGet]
@@ -25,6 +29,16 @@ namespace Grid.Mvc.Demo.Controllers
             var grid = new AjaxGridFactory().CreateAjaxGrid(cars, page.HasValue ? page.Value : 1, page.HasValue);
 
             return Json(new { Html = grid.ToJson("_CarGrid", this), grid.HasItems }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Grid2(int? page)
+        {
+            var cars = PartitionedData();
+
+            var grid = new AjaxGridFactory().CreateAjaxGrid(cars, page.HasValue ? page.Value : 1, page.HasValue);
+
+            return Json(new { Html = grid.ToJson("_Grid2", this), grid.HasItems }, JsonRequestBehavior.AllowGet);
         }
 
         private IQueryable<GridDataRow> Data()

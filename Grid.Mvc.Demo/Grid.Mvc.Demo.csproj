@@ -254,6 +254,7 @@
     <Content Include="Views\Home\PartitionedGrid.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Home\_Grid2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grid.Mvc.Ajax\Grid.Mvc.Ajax.csproj">

@@ -3,7 +3,7 @@
 @model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<Grid.Mvc.Demo.Models.GridDataRow>
 
 
-@Html.Grid(Model,"_Grid").Named("carsGrid").Columns(columns =>
+@Html.Grid(Model,"_Grid").Named("grid2").Columns(columns =>
     {
         columns.Add(car => car.CarMake).Titled("Make").SetWidth(100).Encoded(false).Sanitized(false).Sortable(true).SortInitialDirection(GridSortDirection.Ascending);
         columns.Add(car => car.CarModel).Titled("Model").SetWidth(100).Encoded(false).Sanitized(false).Sortable(true);

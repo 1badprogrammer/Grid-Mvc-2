@@ -12,11 +12,16 @@ GridMvcAjax.demo = (function (my, $) {
             $.ajaxSetup({
                 cache: false
             });
+
             pageGrids.carsGrid.ajaxify({
                 getPagedData: constructorSpec.updateGridAction,
                 getData: constructorSpec.updateGridAction
             });
 
+            pageGrids.grid2.ajaxify({
+                getPagedData: constructorSpec.grid2Action,
+                getData: constructorSpec.grid2Action
+            });
         });
     };
 
