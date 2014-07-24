@@ -17,7 +17,7 @@
             self.gridColumnFilters = null;
             var filters = self.jqContainer.find(".grid-filter");
             var url = URI(initialUrl).normalizeSearch().search();
-            
+
             /*
             if (url.length > 0)
                 url += "&";*/
@@ -40,8 +40,7 @@
                 }
             }
 
-            if (self.gridColumnFilters.length > 0)
-            {
+            if (self.gridColumnFilters.length > 0) {
                 url += "&" + self.gridColumnFilters;
             }
             var fullSearch = url;
@@ -84,6 +83,8 @@
                 } else {
                     self.gridSort = self.gridSort.replace("grid-dir=1", "grid-dir=0");
                 }
+
+                self.orginalSort = self.gridSort;
             }
 
             self.updateGrid = function (search, callback) {
@@ -431,6 +432,11 @@
         refreshPartialGrid: function () {
             var self = this;
             self.loadPage();
+        },
+        clearGridFilters: function () {
+            var self = this;
+            self.gridColumnFilters = null;
+            self.gridSort = self.orginalSort;
         }
     });
 })(jQuery);
