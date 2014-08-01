@@ -43,7 +43,7 @@ namespace GridMvc
         /// <summary>
         ///     Enable paging view
         /// </summary>
-        bool EnablePaging { get; }
+        bool EnablePaging { get; set;}
 
         /// <summary>
         ///     Text in empty grid (no items for display)
