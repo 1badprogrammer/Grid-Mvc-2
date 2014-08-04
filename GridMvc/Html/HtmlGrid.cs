@@ -53,6 +53,7 @@ namespace GridMvc.Html
         bool IGrid.EnablePaging
         {
             get { return _source.EnablePaging; }
+            set { _source.EnablePaging = value; }
         }
 
         string IGrid.EmptyGridText
