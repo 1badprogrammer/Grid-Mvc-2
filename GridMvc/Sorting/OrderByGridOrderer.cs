@@ -27,27 +27,17 @@ namespace GridMvc.Sorting
 
         public IQueryable<T> ApplyOrder(IQueryable<T> items, GridSortDirection direction)
         {
-            var comparer = new KeyComparer();
-
             switch (direction)
             {
                 case GridSortDirection.Ascending:
-                    return items.OrderBy(_expression, comparer);
+                    return items.OrderBy(_expression);
                 case GridSortDirection.Descending:
-                    return items.OrderByDescending(_expression, comparer);
+                    return items.OrderByDescending(_expression);
                 default:
                     throw new ArgumentOutOfRangeException("direction");
             }
         }
 
         #endregion
-
-        internal class KeyComparer : IComparer<TKey>
-        {
-            public int Compare(TKey x, TKey y)
-            {
-                return StringComparer.Create(CultureInfo.CurrentCulture, false).Compare(x, y);
-            }
-        }
     }
 }

@@ -24,16 +24,15 @@ namespace GridMvc.Sorting
 
         public IQueryable<T> ApplyOrder(IQueryable<T> items)
         {
-            var comparer = new KeyComparer();
             var ordered = items as IOrderedQueryable<T>;
             if (ordered == null) return items; //not ordered collection
 
             switch (_initialDirection)
             {
                 case GridSortDirection.Ascending:
-                    return ordered.ThenBy(_expression, comparer);
+                    return ordered.ThenBy(_expression);
                 case GridSortDirection.Descending:
-                    return ordered.ThenByDescending(_expression, comparer);
+                    return ordered.ThenByDescending(_expression);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -45,13 +44,5 @@ namespace GridMvc.Sorting
         }
 
         #endregion
-
-        internal class KeyComparer : IComparer<TKey>
-        {
-            public int Compare(TKey x, TKey y)
-            {
-                return StringComparer.Create(CultureInfo.CurrentCulture, false).Compare(x, y);
-            }
-        }
     }
 }
