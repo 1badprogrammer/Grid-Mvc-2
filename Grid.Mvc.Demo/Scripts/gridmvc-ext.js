@@ -139,7 +139,7 @@
                     self.notifyOnGridLoaded(response, $.Event("GridLoaded"));
                 }).always(function (response) {
                     if (callback) {
-                        callback();
+                        callback(response);
                     }
                 });
             };
@@ -342,6 +342,8 @@
             };
 
             self.loadPage = function () {
+                var dfd = new $.Deferred();
+
                 var gridTableBody = self.jqContainer.find(".grid-footer").closest(".grid-wrap").find("tbody");
                 var nextPageLink = self.jqContainer.find(".grid-next-page");
                 var prevPageLink = self.jqContainer.find(".grid-prev-page");
@@ -405,7 +407,11 @@
                     })
                     .fail(function () {
                         alert("cannot load items");
+                    }).always(function (response) {
+                        dfd.resolve(response);
                     });
+
+                return dfd.promise();
             };
 
             this.pad = function (query) {
@@ -425,13 +431,17 @@
         },
         refreshFullGrid: function () {
             var self = this;
+            var dfd = new $.Deferred();
             self.currentPage = 1;
-            self.updateGrid(location.search, function () {
+            self.updateGrid(location.search, function (result) {
+                dfd.resolve(result);
             });
+
+            return dfd.promise();
         },
         refreshPartialGrid: function () {
             var self = this;
-            self.loadPage();
+            return self.loadPage();
         },
         clearGridFilters: function () {
             var self = this;

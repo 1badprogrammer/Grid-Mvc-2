@@ -9,7 +9,7 @@ namespace Grid.Mvc.Ajax.GridExtensions
     public class AjaxGrid<T> : Grid<T>, IAjaxGrid where T: class
     {
         public IAjaxGridPager AjaxGridSettings { get { return Pager as IAjaxGridPager; } }
-        public bool HasItems { get { return Pager.CurrentPage < AjaxGridSettings.Pages; } }
+        public bool HasItems { get { return Pager.CurrentPage <= AjaxGridSettings.Pages; } }
 
         public AjaxGrid(IQueryable<T> items, int page, bool renderOnlyRows, int pagePartitionSize=0)
             : base(items)
