@@ -87,20 +87,11 @@
                 self.orginalSort = self.gridSort;
             }
 
-            self.updateGrid = function (search, callback) {
-                var gridQuery = "";
+            self.updateGrid = function (search, callback, renderRowsOnly) {
+                var gridQuery = "&";
 
                 if (self.gridFilterForm) {
-                    $("#" + self.gridFilterForm.attr("id") + " input,select").each(function (index, item) {
-                        if ($(item).attr('id')) {
-                            var queryVal = $(item).attr('id') + "=" + $(item).val();
-                            if (gridQuery !== "") {
-                                gridQuery += "&" + queryVal;
-                            } else {
-                                gridQuery += queryVal;
-                            }
-                        }
-                    });
+                    gridQuery += self.gridFilterForm.serialize();
                 }
 
                 if (search) {
@@ -122,7 +113,7 @@
                     gridQuery = gridQuery.replace("?", "&");
                 }
 
-                var gridUrl = URI(self.loadDataAction + gridQuery).normalizeSearch().toString();
+                var gridUrl = URI(self.loadDataAction + gridQuery + "&" + renderRowsOnly).normalizeSearch().toString();
 
                 $.ajax({
                     url: gridUrl,
@@ -350,14 +341,10 @@
                 self.partitionSize = parseInt(self.jqContainer.find(".grid-pageSetLink").attr("data-partitionSize"));
                 self.lastPageNum = parseInt(self.jqContainer.find(".grid-page-link:last").attr('data-page'));
 
-                var gridQuery = "";
+                var gridQuery = "&";
 
                 if (self.gridFilterForm) {
-                    $("#" + self.gridFilterForm.attr("id") + " input,select").each(function (index, item) {
-                        if ($(item).attr('id')) {
-                            gridQuery += "&" + $(item).attr('id') + "=" + $(item).val();
-                        }
-                    });
+                    gridQuery += self.gridFilterForm.serialize();
                 }
 
                 if (self.gridSort) {
@@ -441,7 +428,31 @@
         },
         refreshPartialGrid: function () {
             var self = this;
-            return self.loadPage();
+            var dfd = new $.Deferred();
+            var gridSettings = "?" + self.gridSort + "&" + self.gridColumnFilters;
+            var gridPageSettings = "renderRowsOnly=false&page=" + self.currentPage;
+            self.updateGrid(gridSettings, function (result) {
+                var pageNumber = self.currentPage;
+                self.jqContainer.find(".pagination li.active").removeClass("active").children("a").attr('href', '#');
+                $('[data-page~=' + pageNumber + ']').parent("li").addClass("active");
+
+                if (pageNumber == 1) {
+                    // load first page set
+                    self.pageSetNum = 2;
+                    self.loadPreviousPageSet();
+                } else if (pageNumber == self.lastPageNum) {
+                    // load last page set
+                    self.pageSetNum = Math.ceil(self.lastPageNum / self.partitionSize) - 1;
+                    self.loadNextPageSet();
+                    self.jqContainer.find(".grid-prev-page").show();
+                    self.jqContainer.find(".grid-next-page").hide();
+                    self.jqContainer.find(".grid-pageSetLink.prev").show();
+                }
+
+                dfd.resolve(result);
+            }, gridPageSettings);
+
+            return dfd.promise();
         },
         clearGridFilters: function () {
             var self = this;
