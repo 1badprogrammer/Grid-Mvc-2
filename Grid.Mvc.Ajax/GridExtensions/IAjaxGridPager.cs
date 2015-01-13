@@ -2,7 +2,8 @@
 {
     public interface IAjaxGridPager
     {
-        int Pages { get; }
+        int Pages { get; set; }
+        int ItemCount { get; set; }
         int PagePartitionSize { get; set; }
     }
 }

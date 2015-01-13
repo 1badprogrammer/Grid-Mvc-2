@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Grid.Mvc.Ajax.Helpers;
@@ -15,6 +16,15 @@ namespace Grid.Mvc.Ajax.GridExtensions
             : base(items)
         {
             Pager = new AjaxGridPager(this) { CurrentPage = page };
+            RenderOptions.RenderRowsOnly = renderOnlyRows;
+            AjaxGridSettings.PagePartitionSize = pagePartitionSize;
+        }
+
+        public AjaxGrid(IEnumerable<T> items, int page,int count, bool renderOnlyRows, int pagePartitionSize = 0)
+            : base(items)
+        {
+            Pager = new AjaxGridPager(this) { CurrentPage = page };
+            ((IAjaxGridPager) Pager).ItemCount = count;
             RenderOptions.RenderRowsOnly = renderOnlyRows;
             AjaxGridSettings.PagePartitionSize = pagePartitionSize;
         }
