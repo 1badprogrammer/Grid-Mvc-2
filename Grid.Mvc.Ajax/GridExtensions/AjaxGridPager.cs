@@ -66,6 +66,7 @@ namespace Grid.Mvc.Ajax.GridExtensions
 
         public void Initialize<T>(IEnumerable<T> items, int count)
         {
+            ItemCount = count;
             Pages = count / PageSize;
             if (count % PageSize > 0)
                 Pages++;

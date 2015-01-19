@@ -20,13 +20,18 @@ namespace Grid.Mvc.Ajax.GridExtensions
             AjaxGridSettings.PagePartitionSize = pagePartitionSize;
         }
 
-        public AjaxGrid(IEnumerable<T> items, int page,int count, bool renderOnlyRows, int pagePartitionSize = 0)
+        public AjaxGrid(IEnumerable<T> items, int page,int count, int pageSize,bool renderOnlyRows, int pagePartitionSize = 0)
             : base(items)
         {
-            Pager = new AjaxGridPager(this) { CurrentPage = page };
-            ((IAjaxGridPager) Pager).ItemCount = count;
+            Pager = new AjaxGridPager(this,count) { CurrentPage = page,ItemCount = count};
             RenderOptions.RenderRowsOnly = renderOnlyRows;
             AjaxGridSettings.PagePartitionSize = pagePartitionSize;
+            Pager.PageSize = pageSize;
+            AjaxGridSettings.ItemCount = count;
+            int pages = count / Pager.PageSize;
+            if (count % Pager.PageSize > 0)
+                pages++;
+            AjaxGridSettings.Pages = pages;
         }
 
         public string ToJson(string gridPartialViewName, Controller controller)
