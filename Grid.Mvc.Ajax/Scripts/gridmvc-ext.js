@@ -18,9 +18,9 @@
             var filters = self.jqContainer.find(".grid-filter");
             var url = URI(initialUrl).normalizeSearch().search();
 
-            /*
+            
             if (url.length > 0)
-                url += "&";*/
+                url += "&";
 
             self.gridColumnFilters = "";
             if (!skip) {
