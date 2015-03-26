@@ -118,6 +118,8 @@ namespace GridMvc.Columns
                 column.Titled(options.Title);
             if (!string.IsNullOrEmpty(options.Width))
                 column.Width = options.Width;
+            if (!string.IsNullOrEmpty(options.ToolTip))
+                column.ToolTip = options.ToolTip;
         }
 
         private void ApplyHiddenColumnAnnotationSettings(IGridColumn<T> column, GridHiddenColumnAttribute options)

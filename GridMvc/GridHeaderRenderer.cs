@@ -31,6 +31,9 @@ namespace GridMvc
                 builder.AddCssClass(cssClass);
             if (!string.IsNullOrWhiteSpace(cssStyles))
                 builder.MergeAttribute("style", cssStyles);
+
+            builder.Attributes.Add("title", column.ToolTip);
+
             builder.InnerHtml = RenderAdditionalContent(column);
 
             return MvcHtmlString.Create(builder.ToString());

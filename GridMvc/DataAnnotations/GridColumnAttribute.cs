@@ -54,6 +54,8 @@ namespace GridMvc.DataAnnotations
             set { _initialDirection = value; }
         }
 
+        public string ToolTip { get; set; }
+
         public GridSortDirection? GetInitialSortDirection()
         {
             return _initialDirection;

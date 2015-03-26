@@ -8,6 +8,7 @@ namespace GridMvc.Columns
 {
     public interface IGridColumn<T> : IGridColumn, IColumn<T>, ISortableColumn<T>, IFilterableColumn<T>
     {
+       
     }
 
     public interface IGridColumn : ISortableColumn, IFilterableColumn
@@ -26,6 +27,12 @@ namespace GridMvc.Columns
         /// </summary>
         /// <param name="title">Title text</param>
         IGridColumn<T> Titled(string title);
+
+        /// <summary>
+        ///     Set gridColumn tool tip
+        /// </summary>
+        /// <param name="title">Tool Tip text</param>
+        IGridColumn<T> ToolTipped(string toolTip);
 
         /// <summary>
         ///     Need to encode the content of the gridColumn
@@ -71,6 +78,11 @@ namespace GridMvc.Columns
         ///     Columns title
         /// </summary>
         string Title { get; }
+
+        /// <summary>
+        /// Columns tool tip
+        /// </summary>
+        string ToolTip { get; set; }
 
         /// <summary>
         ///     Internal name of the gridColumn

@@ -64,6 +64,11 @@ namespace GridMvc.Columns
                 //Generate unique column name:
                 Name = PropertiesHelper.BuildColumnNameFromMemberExpression(expr);
                 Title = Name; //Using the same name by default
+
+                if (!String.IsNullOrEmpty(Name))
+                {
+                    ToolTip = Title.Substring(Name.LastIndexOf(".") + 1);
+                }
             }
         }
 

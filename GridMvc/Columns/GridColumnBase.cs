@@ -23,6 +23,8 @@ namespace GridMvc.Columns
 
         public string Title { get; set; }
 
+        public String ToolTip { get; set; }
+
         public string Name { get; set; }
 
         public bool IsSorted { get; set; }
@@ -31,6 +33,13 @@ namespace GridMvc.Columns
         public IGridColumn<T> Titled(string title)
         {
             Title = title;
+            ToolTip = title;
+            return this;
+        }
+
+        public IGridColumn<T> ToolTipped(string toolTip)
+        {
+            ToolTip = toolTip;
             return this;
         }
 
