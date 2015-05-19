@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data.Objects;
 using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace GridMvc.Filtering.Types
 {
@@ -16,21 +19,20 @@ namespace GridMvc.Filtering.Types
 
         public override Expression GetFilterExpression(Expression leftExpr, string value, GridFilterType filterType)
         {
-            //var dateExpr = Expression.Property(leftExpr, leftExpr.Type, "Date");
+            if (filterType == GridFilterType.Equals)
+            {
+                GetValidType(filterType);
+                object typedValue = GetTypedValue(value);
+                if (typedValue == null)
+                    return null; //incorrent filter value;
 
-            //if (filterType == GridFilterType.Equals)
-            //{
-            //    var dateObj = GetTypedValue(value);
-            //    if (dateObj == null) return null;//not valid
-
-            //    var startDate = Expression.Constant(dateObj);
-            //    var endDate = Expression.Constant(((DateTime)dateObj).AddDays(1));
-
-            //    var left = Expression.GreaterThanOrEqual(leftExpr, startDate);
-            //    var right = Expression.LessThan(leftExpr, endDate);
-
-            //    return Expression.And(left, right);
-            //}
+                Expression valueExpr = Expression.Constant(typedValue);
+                var newLeftExp = Expression.GreaterThanOrEqual(leftExpr, valueExpr);
+                DateTime nextDay = DateTime.Parse(value).AddDays(1);
+                var dayAfterExp = Expression.Constant(nextDay);
+                var newRightExp = Expression.LessThan(leftExpr, dayAfterExp);
+                return Expression.And(newLeftExp, newRightExp);
+            }
 
             return base.GetFilterExpression(leftExpr, value, filterType);
         }
